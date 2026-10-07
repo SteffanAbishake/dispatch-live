@@ -1,0 +1,36 @@
+# Creates a PAID web service and persistent disk. Review the cost before deploying.
+services:
+  - type: web
+    name: dispatch-live-api
+    runtime: docker
+    plan: starter
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    disk:
+      name: dispatch-data
+      mountPath: /app/data
+      sizeGB: 1
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:8080
+      - key: Hosting__HttpsTerminatedAtEdge
+        value: 'true'
+      - key: ConnectionStrings__Database
+        value: Data Source=/app/data/dispatch.db
+      - key: Bootstrap__Company
+        value: My delivery company
+      - key: Bootstrap__Email
+        sync: false
+      - key: Bootstrap__Password
+        sync: false
+      - key: Otp__DevelopmentCodes
+        value: 'false'
+      - key: Otp__AccountSid
+        sync: false
+      - key: Otp__AuthToken
+        sync: false
+      - key: Otp__ServiceSid
+        sync: false

@@ -1,0 +1,10 @@
+**/bin/
+**/obj/
+**/data/
+**/build/
+**/.gradle/
+**/.idea/
+**/local.properties
+.env
+*.jks
+*.keystore
